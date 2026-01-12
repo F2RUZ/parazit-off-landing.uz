@@ -36,7 +36,7 @@ export default function MainFooter() {
                   </span>{" "}
                   <a
                     href="tel:+998555170147"
-                    className="text-[#8BC34A] hover:text-white transition-all font-[1000] text-lg"
+                    className="text-[#8BC34A] hover:text-white transition-all font-[1000] text-[12px]"
                   >
                     +998 (55) 517-01-47
                   </a>

@@ -32,10 +32,7 @@ export default function ParazitOffIntro() {
               <h1 className="flex items-center text-4xl md:text-[65px] font-[1000] tracking-tighter leading-none select-none uppercase">
                 <span className="text-[#004D40]">Parazit</span>
                 <span className="text-[#8BC34A] italic ml-1">OFF</span>
-                <Leaf
-                  className="text-[#8BC34A] ml-2 w-8 h-8 md:w-14 md:h-14"
-                  fill="currentColor"
-                />
+              
               </h1>
               <h2 className="text-[22px] md:text-[38px] font-extrabold leading-tight text-slate-700 tracking-tight">
                 Gelmintlarga qarshi <br className="hidden md:block" />

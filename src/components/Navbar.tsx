@@ -47,9 +47,7 @@ export default function Navbar() {
                 <span className="text-2xl md:text-3xl font-[1000] tracking-tighter text-[#8BC34A] italic ml-0.5">
                   OFF
                 </span>
-                <div className="ml-1 text-[#8BC34A] group-hover:rotate-12 transition-transform">
-                  <Leaf size={20} fill="currentColor" />
-                </div>
+             
               </div>
             </Link>
 

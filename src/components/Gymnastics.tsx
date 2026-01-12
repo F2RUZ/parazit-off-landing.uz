@@ -35,10 +35,7 @@ export default function Results() {
               <span className="text-[#004D40]">Parazit</span>
               <span className="text-[#8BC34A] italic ml-1">OFF</span>
               <div className="flex items-center justify-center ml-2">
-                <Leaf
-                  className="w-8 h-8 md:w-[42px] md:h-[42px] text-[#8BC34A] transform rotate-[10deg]"
-                  fill="currentColor"
-                />
+           
               </div>
             </div>
 

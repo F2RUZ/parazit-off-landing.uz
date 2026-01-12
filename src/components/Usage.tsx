@@ -26,10 +26,7 @@ export default function Usage() {
               <div className="flex items-center select-none uppercase">
                 <span className="text-[#004D40]">Parazit</span>
                 <span className="italic text-[#8BC34A] ml-1">OFF</span>
-                <Leaf
-                  className="ml-2 w-8 h-8 md:w-12 md:h-12 text-[#8BC34A]"
-                  fill="currentColor"
-                />
+            
               </div>
               <span className="text-[#004D40] font-black text-[24px] md:text-[36px] mt-2">
                 bilan tozalanish{" "}

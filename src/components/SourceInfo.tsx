@@ -16,7 +16,7 @@ export default function SourceInfo() {
   ];
 
   return (
-    <section className="w-full bg-white pt-6 pb-12">
+    <section className="w-full bg-white  pb-1">
       <div className="max-w-[1100px] mx-auto px-4">
         {/* FOOTER NAVIGATSIYASI */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 border-t border-green-50 pt-16">
@@ -25,10 +25,7 @@ export default function SourceInfo() {
             <div className="flex items-center text-[36px] md:text-[42px] font-black tracking-tighter leading-none select-none uppercase">
               <span className="text-[#004D40]">Parazit</span>
               <span className="text-[#8BC34A] italic ml-1">OFF</span>
-              <Leaf
-                className="ml-2 w-8 h-8 md:w-10 md:h-10 text-[#8BC34A] transform rotate-[10deg]"
-                fill="currentColor"
-              />
+     
             </div>
 
             <div className="flex flex-wrap justify-center gap-3">
@@ -61,19 +58,6 @@ export default function SourceInfo() {
           </div>
         </div>
 
-        {/* COPYRIGHT VA SERTIFIKATLAR */}
-        <div className="mt-20 pt-8 border-t border-green-50 flex flex-col md:flex-row justify-between items-center gap-6 text-[#004D40]/40 text-[10px] font-bold uppercase tracking-widest">
-          <p>© 2026 PARAZITOFF DROPS. BARCHA HUQUQLAR HIMOYALANGAN.</p>
-          <div className="flex items-center gap-8 italic">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-[#8BC34A] rounded-full animate-pulse" />
-              BIO-FAOL MAHSULOT
-            </span>
-            <span className="text-[#004D40] bg-green-50 px-3 py-1 rounded-md font-black">
-              GMP CERTIFIED
-            </span>
-          </div>
-        </div>
       </div>
 
       <OrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

@@ -2,7 +2,7 @@ name: Deploy Parazit Off Project
 
 on:
   push:
-    branches: ["main", "master"] # Faqat asosiy branchlar uchun
+    branches: ["main", "master"]
 
 permissions:
   contents: write
@@ -26,28 +26,34 @@ jobs:
           node-version: '20'
 
       - name: 📦 Kutubxonalarni o'rnatish
-        # npm ci o'rniga install ishlatamiz, bu xatolarni oldini oladi
         run: npm install --legacy-peer-deps
 
       - name: 🏗️ Loyihani Build qilish
         run: npm run build
 
-      - name: 🚀 Serverga Deploy qilish
+      - name: 🚀 Serverni tayyorlash va Deploy
         run: |
+          # Serverdagi asosiy yo'l
           TARGET_DIR="/home/user/Projects/Euphoria/lands/parazit-off.uz"
+          
+          echo "Checking directory: $TARGET_DIR"
+          
+          # Agar papka o'chirilgan bo'lsa, qayta yaratamiz
           mkdir -p $TARGET_DIR
           
-          # Qaysi papka build bo'lganini aniqlash
+          # Build papkasini tekshirish
           if [ -d "out" ]; then
             SOURCE_DIR="out"
           elif [ -d ".next" ]; then
             SOURCE_DIR=".next"
           else
-            echo "❌ Build natijasi topilmadi!"
+            echo "❌ Xato: Build natijasi (out yoki .next) topilmadi!"
             exit 1
           fi
           
-          echo "Deploying from $SOURCE_DIR to $TARGET_DIR..."
+          # Fayllarni tozalash va nusxalash
+          echo "Copying files from $SOURCE_DIR to $TARGET_DIR..."
           rm -rf $TARGET_DIR/*
           cp -r $SOURCE_DIR/* $TARGET_DIR/
-          echo "✅ Muvaffaqiyatli yakunlandi!"
+          
+          echo "✅ Deploy muvaffaqiyatli yakunlandi!"

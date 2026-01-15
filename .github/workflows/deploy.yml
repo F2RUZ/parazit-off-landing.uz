@@ -24,21 +24,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: 📦 Kutubxonalarni o'rnatish
-        run: npm ci
+      - name: 📦 Kutubxonalarni o'rnatish (Majburiy usul)
+        run: |
+          # npm ci o'rniga install ishlatamiz, bu versiya xatolarini chetlab o'tadi
+          npm install --legacy-peer-deps
 
       - name: 🏗️ Loyihani Build qilish
         run: npm run build
 
       - name: 🚀 Serverga Deploy qilish
         run: |
-          # Parazit Off uchun target papka
           TARGET_DIR="/home/user/Projects/Euphoria/lands/parazit-off.uz"
           mkdir -p $TARGET_DIR
           
-          # Build papkasini aniqlash (out yoki .next)
           if [ -d "out" ]; then
             SOURCE_DIR="out"
           elif [ -d ".next" ]; then
@@ -48,7 +47,6 @@ jobs:
             exit 1
           fi
           
-          echo "Deploying from $SOURCE_DIR to $TARGET_DIR..."
           rm -rf $TARGET_DIR/*
           cp -r $SOURCE_DIR/* $TARGET_DIR/
           echo "✅ Parazit Off muvaffaqiyatli deploy qilindi!"

@@ -24,10 +24,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: 📦 Kutubxonalarni o'rnatish
-        run: npm ci
+      - name: 📦 Kutubxonalarni tozalash va o'rnatish
+        run: |
+          rm -rf node_modules
+          npm install
+          # Linux uchun yetishmayotgan CSS modulini majburiy o'rnatish
+          npm install lightningcss-linux-x64-gnu
 
       - name: 🏗️ Loyihani Build qilish
         run: npm run build

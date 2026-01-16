@@ -15,12 +15,11 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
   >("idle");
   const [activeField, setActiveField] = useState<"name" | "phone" | null>(null);
 
-  // Snackbar holatini boshqarish
+  // Snackbar va xabarlarni boshqarish
   const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("Server bilan bog'lanishda xatolik!");
 
-  const API_URL = `${
-    process.env.NEXT_PUBLIC_API_URL 
-  }/leads/`;
+  const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/leads/`;
 
   const progress =
     (formData.name.length > 2 ? 50 : 0) +
@@ -30,7 +29,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
     if (isOpen) {
       document.body.style.overflow = "hidden";
       setStatus("idle");
-      setShowError(false); // Modal ochilganda xatolikni o'chirish
+      setShowError(false);
       setFormData({ name: "", phone: "" });
     } else {
       document.body.style.overflow = "auto";
@@ -55,7 +54,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    setShowError(false); // Har safar yuborishda oldingi xatoni tozalash
+    setShowError(false);
 
     const cleanPhone = formData.phone.replace(/\D/g, "");
 
@@ -64,8 +63,8 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formData.name,
-          phone: cleanPhone,
+          full_name: formData.name,
+          phone_number: `+${cleanPhone}`, // Backend uchun plyus bilan
           product_name: "ParazitOFF",
         }),
       });
@@ -73,13 +72,22 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
       if (response.ok) {
         setStatus("success");
         setTimeout(() => onClose(), 4000);
+      } else if (response.status === 429) {
+        // --- 429 TOO MANY REQUESTS ---
+        setStatus("error");
+        setErrorMessage("Siz allaqachon ariza qoldirgansiz. Iltimos, 1 soatdan keyin qayta urinib ko'ring.");
+        setShowError(true);
+        setTimeout(() => {
+          setStatus("idle");
+          setShowError(false);
+        }, 5000);
       } else {
         throw new Error("Server error");
       }
     } catch (error) {
       setStatus("error");
-      setShowError(true); // FAQAT catch blokida xatoni ko'rsatish
-      // 3 sekunddan keyin xato holatidan qaytish va snackbarni yopish
+      setErrorMessage("Server bilan bog'lanishda xatolik!");
+      setShowError(true);
       setTimeout(() => {
         setStatus("idle");
         setShowError(false);
@@ -91,10 +99,10 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
 
   return (
     <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-[#002D25]/90 backdrop-blur-md">
-      {/* Faqat showError true bo'lganda Snackbar chiqadi */}
+      {/* Snackbar endi dinamik errorMessage'ni ko'rsatadi */}
       <Snackbar
         isVisible={showError}
-        message="Server bilan bog'lanishda xatolik!"
+        message={errorMessage}
         onClose={() => setShowError(false)}
       />
 
@@ -129,7 +137,6 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                 <div className="flex items-center justify-center text-3xl md:text-4xl font-[1000] tracking-tighter uppercase">
                   <span className="text-[#004D40]">Parazit</span>
                   <span className="text-[#8BC34A] italic ml-1">OFF</span>
-              
                 </div>
               </div>
 

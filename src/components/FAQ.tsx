@@ -27,7 +27,7 @@ export default function FAQ() {
   const darkColor = "#004D40";    // ParazitOFF to'q yashil
 
   return (
-    <section className="w-full py-16 bg-white" id="faq">
+    <section className="w-full py-3 bg-white" id="faq">
       <div className="max-w-[700px] mx-auto px-4">
         
         {/* Sarlavha qismi - Cardio/Sustaflex stili */}
